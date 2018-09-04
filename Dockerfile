@@ -2,7 +2,7 @@
 # =========================================================================
 #
 #	Dockerfile
-#	  Dockerfile for debian-pull-gallery in a Debian container.
+#	  Dockerfile for debian-pull-gallery in an Debian container.
 #
 # =========================================================================
 #
@@ -15,7 +15,7 @@
 #
 # =========================================================================
 #
-#	Copyright © 2018. EarthWalk Software
+#	Copyright © 2017, 2018. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/debian-pull-gallery.
@@ -36,12 +36,12 @@
 #
 # =========================================================================
 # =========================================================================
-FROM ewsdocker/debian-openjre:9.5.4
+FROM ewsdocker/debian-openjre:9.5.3
 MAINTAINER Jay Wheeler
 
 # =========================================================================
 
-ENV RIPME_VER 1.7.6
+ENV RIPME_VER 1.7.63
 
 # =========================================================================
 
@@ -59,14 +59,26 @@ RUN apt-get -y update \
  && apt-get -y upgrade \
  && apt-get -y install \
                libwebkitgtk-3.0 \
- && mkdir -p /usr/local/share/ripme \
- && cd /usr/local/share/ripme \
+ && mkdir -p /usr/share/ripme \
+ && cd /usr/share/ripme \
  && wget "https://github.com/RipMeApp/ripme/releases/download/$RIPME_VER/ripme.jar" \
- && ln -s /usr/local/share/ripme/ripme /usr/bin/ripme.jar \
  && printf "${LMSBUILD_DOCKER} (${LMSBUILD_PACKAGE}), %s @ %s\n" `date '+%Y-%m-%d'` `date '+%H:%M:%S'` >> /etc/ewsdocker-builds.txt  
+
+# =========================================================================
+
+COPY scripts/. /
+
+RUN chmod 775 /usr/bin/ripme.bash \
+ && chmod 775 /usr/share/ripme/ripme.jar \
+ && chmod 775 /usr/local/bin/* \
+ && chmod 600 /usr/local/share/applications/debian-pull-gallery-${LMSBUILD_VERSION}.desktop 
+
+# =========================================================================
 
 VOLUME /data
 WORKDIR /data
 
+# =========================================================================
+
 ENTRYPOINT ["/my_init", "--quiet"]
-CMD ["ripme.jar"]
+CMD ["/usr/bin/ripme.bash"]

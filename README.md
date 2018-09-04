@@ -6,7 +6,24 @@ ____
 **NOTE:**  This project is currently under development, and **NOT** ready for use.  
 ____  
 
-**Usage (Standard)**
+**Installing ewsdocker/debian-pull-gallery**  
+
+The following scripts will download the the selected **ewsdocker/debian-pull-gallery** image, create a container, setup and populate the directory structures, create the run-time scripts, and install the application's desktop file(s).  
+
+The _default_ values will install all directories and contents in the **docker host** user's home directory (refer to [Mapping docker host resources to the docker container](https://github.com/ewsdocker/debian-pull-gallery/wiki/QuickStart#mapping)),  
+
+**ewsdocker/debian-pull-gallery:9.5.0**  
+  
+    docker run --rm \
+               -v ${HOME}/bin:/userbin \
+               -v ${HOME}/.local:/usrlocal \
+               -e LMS_BASE="${HOME}/.local" \
+               -v ${HOME}/.config/docker:/conf \
+               -v ${HOME}/.config/docker/debian-pull-gallery-9.5.0:/root \
+               --name=debian-pull-gallery-9.5.0 \
+           ewsdocker/debian-pull-gallery:9.5.0 lms-setup  
+
+____  
 
 ```
 docker run -it \
