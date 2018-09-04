@@ -2,54 +2,71 @@
 # =========================================================================
 #
 #	Dockerfile
-#	  Dockerfile for alpine-pull-gallery in an Alpine Linux container.
+#	  Dockerfile for debian-pull-gallery in a Debian container.
 #
 # =========================================================================
 #
 # @author Jay Wheeler.
-# @version 3.7.1
+# @version 9.5.0
 # @copyright © 2018. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
-# @package ewsdocker/alpine-pull-gallery
+# @package ewsdocker/debian-pull-gallery
 # @subpackage Dockerfile
 #
 # =========================================================================
 #
-#	Copyright © 2017, 2018. EarthWalk Software
+#	Copyright © 2018. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
-#   This file is part of ewsdocker/alpine-pull-gallery.
+#   This file is part of ewsdocker/debian-pull-gallery.
 #
-#   ewsdocker/alpine-pull-gallery is free software: you can redistribute 
+#   ewsdocker/debian-pull-gallery is free software: you can redistribute 
 #   it and/or modify it under the terms of the GNU General Public License 
 #   as published by the Free Software Foundation, either version 3 of the 
 #   License, or (at your option) any later version.
 #
-#   ewsdocker/alpine-pull-gallery is distributed in the hope that it will 
+#   ewsdocker/debian-pull-gallery is distributed in the hope that it will 
 #   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
 #   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #   GNU General Public License for more details.
 #
 #   You should have received a copy of the GNU General Public License
-#   along with ewsdocker/alpine-pull-gallery.  If not, see 
+#   along with ewsdocker/debian-pull-gallery.  If not, see 
 #   <http://www.gnu.org/licenses/>.
 #
 # =========================================================================
 # =========================================================================
-FROM nimmis/alpine-micro:3.7
+FROM ewsdocker/debian-openjre:9.5.4
 MAINTAINER Jay Wheeler
+
+# =========================================================================
 
 ENV RIPME_VER 1.7.6
 
-RUN set -xe \
-    && apk add --no-cache ca-certificates \
-			openjdk8-jre \
-			wget \
-    && mkdir /app \
-    && wget "https://github.com/RipMeApp/ripme/releases/download/$RIPME_VER/ripme.jar" -P /app
+# =========================================================================
+
+ENV LMSBUILD_VERSION="9.5.0"
+ENV LMSBUILD_NAME=debian-pull-gallery 
+ENV LMSBUILD_REPO=ewsdocker 
+ENV LMSBUILD_REGISTRY="" 
+
+ENV LMSBUILD_DOCKER="${LMSBUILD_REPO}/${LMSBUILD_NAME}:${LMSBUILD_VERSION}" 
+ENV LMSBUILD_PACKAGE="RipMeApp/ripme:${RIPME_VER}"
+
+# =========================================================================
+
+RUN apt-get -y update \
+ && apt-get -y upgrade \
+ && apt-get -y install \
+               libwebkitgtk-3.0 \
+ && mkdir -p /usr/local/share/ripme \
+ && cd /usr/local/share/ripme \
+ && wget "https://github.com/RipMeApp/ripme/releases/download/$RIPME_VER/ripme.jar" \
+ && ln -s /usr/local/share/ripme/ripme /usr/bin/ripme.jar \
+ && printf "${LMSBUILD_DOCKER} (${LMSBUILD_PACKAGE}), %s @ %s\n" `date '+%Y-%m-%d'` `date '+%H:%M:%S'` >> /etc/ewsdocker-builds.txt  
 
 VOLUME /data
 WORKDIR /data
 
-ENTRYPOINT ["java", "-jar", "/app/ripme.jar"]
-CMD ["--help"]
+ENTRYPOINT ["/my_init", "--quiet"]
+CMD ["ripme.jar"]

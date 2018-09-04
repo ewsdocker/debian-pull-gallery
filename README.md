@@ -1,6 +1,6 @@
-## ewsdocker/alpine-pull-gallery
+## ewsdocker/debian-pull-gallery
 
-Alpine Linux docker image for [RipMeApp/ripme](https://github.com/RipMeApp/ripme).
+Debian docker image for [RipMeApp/ripme](https://github.com/RipMeApp/ripme).
 ____  
 
 **NOTE:**  This project is currently under development, and **NOT** ready for use.  
@@ -12,11 +12,11 @@ ____
 docker run -it \
            --rm \
            -v /tmp/data:/data \
-           --name=alpine-pull-gallery \
-       ewsdocker/alpine-pull-gallery  
+           --name=debian-pull-gallery \
+       ewsdocker/debian-pull-gallery  
 
 ```
-will download and install the **ewsdocker/alpine-pull-gallery** image, create a container named **alpine-pull-gallery**, and display the _help_ dialog:  
+will download and install the **ewsdocker/debian-pull-gallery** image, create a container named **debian-pull-gallery**, and display the _help_ dialog:  
 
 ```
 Loaded file:/app/ripme.jar!/rip.properties
@@ -39,14 +39,14 @@ usage: java -jar ripme.jar [OPTIONS]
 ```
 
 The following _docker_ command will 
-1. download and install the **ewsdocker/alpine-pull-gallery** image (if it does not already exist),  
-2. create and run a temporary docker container named **alpine-pull-gallery**, and  
+1. download and install the **ewsdocker/debian-pull-gallery** image (if it does not already exist),  
+2. create and run a temporary docker container named **debian-pull-gallery**, and  
 3. download the indicated gallery (**-u**) to the folder in the volume **~/Pictures/inside-from-the-rain** on the docker host:
 
 ```
 docker run -it \
            --rm \
            -v ${HOME}/Pictures/inside-from-the-rain:/data \
-           --name=alpine-pull-gallery \
-       ewsdocker/alpine-pull-gallery -u 'https://inside-from-the-rain.tumblr.com'
+           --name=debian-pull-gallery \
+       ewsdocker/debian-pull-gallery -u 'https://inside-from-the-rain.tumblr.com'
 ```
