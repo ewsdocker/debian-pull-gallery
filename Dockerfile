@@ -57,8 +57,6 @@ ENV LMSBUILD_PACKAGE="RipMeApp/ripme:${RIPME_VER}"
 
 RUN apt-get -y update \
  && apt-get -y upgrade \
- && apt-get -y install \
-               libwebkitgtk-3.0 \
  && mkdir -p /usr/share/ripme \
  && cd /usr/share/ripme \
  && wget "https://github.com/RipMeApp/ripme/releases/download/$RIPME_VER/ripme.jar" \
@@ -75,7 +73,9 @@ RUN chmod 775 /usr/bin/ripme.bash \
 
 # =========================================================================
 
+VOLUME /batch
 VOLUME /data
+
 WORKDIR /data
 
 # =========================================================================
