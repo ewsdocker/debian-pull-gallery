@@ -24,7 +24,8 @@ The _default_ values will install all directories and contents in the **docker h
 ____  
 **ewsdocker/debian-pull-gallery:latest**  
   
-    docker run -v ${HOME}/bin:/userbin \
+    docker run --rm \
+               -v ${HOME}/bin:/userbin \
                -v ${HOME}/.local:/usrlocal \
                -e LMS_BASE="${HOME}/.local" \
                -v ${HOME}/.config/docker:/conf \
@@ -36,7 +37,8 @@ ____
 ____  
 **ewsdocker/debian-pull-gallery:9.5.0**  
   
-    docker run -v ${HOME}/bin:/userbin \
+    docker run --rm \
+               -v ${HOME}/bin:/userbin \
                -v ${HOME}/.local:/usrlocal \
                -e LMS_BASE="${HOME}/.local" \
                -v ${HOME}/.config/docker:/conf \
