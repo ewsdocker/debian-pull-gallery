@@ -22,6 +22,7 @@ The following scripts will download the selected **ewsdocker/debian-pull-gallery
 The _default_ values will install all directories and contents in the **docker host** user's home directory (refer to [Mapping docker host resources to the docker container](https://github.com/ewsdocker/debian-pull-gallery/wiki/QuickStart#mapping)),  
 
 ____  
+
 **ewsdocker/debian-pull-gallery:latest**  
   
     docker run --rm \
@@ -35,6 +36,7 @@ ____
            ewsdocker/debian-pull-gallery:latest lms-setup  
 
 ____  
+
 **ewsdocker/debian-pull-gallery:9.5.2**  
   
     docker run --rm \

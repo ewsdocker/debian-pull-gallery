@@ -1,6 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
-Exec=/home/jay/.local/bin/docker-deb-start-0.0.2 debian-pull-gallery:latest
+Exec=/home/jay/.local/bin/docker-deb-start-0.0.2 debian-pull-gallery-latest
 Icon=/home/jay/.local/share/icons/down.png
 Type=Application
 Terminal=false

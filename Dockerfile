@@ -59,9 +59,9 @@ ENV LMSBUILD_PACKAGE="${LMSBUILD_PARENT}, RipMeApp/ripme:${RIPME_VER}"
 RUN apt-get -y update \
  && apt-get -y upgrade \
  && apt-get -y install \
-               libgtk-3-0 \
-               libgtk-3-bin \
-               libgtk-3-common \ 
+            libgtk-3-0 \
+            libgtk-3-bin \
+            libgtk-3-common \ 
  && mkdir -p /usr/share/ripme \
  && cd /usr/share/ripme \
  && wget "https://github.com/RipMeApp/ripme/releases/download/$RIPME_VER/ripme.jar" \
