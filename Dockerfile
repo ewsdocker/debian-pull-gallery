@@ -7,7 +7,7 @@
 # =========================================================================
 #
 # @author Jay Wheeler.
-# @version 9.5.1
+# @version 9.5.2
 # @copyright © 2018. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/debian-pull-gallery
@@ -36,27 +36,32 @@
 #
 # =========================================================================
 # =========================================================================
-FROM ewsdocker/debian-openjre:9.5.3
+FROM ewsdocker/debian-openjre:8-jre-9.5.4
 MAINTAINER Jay Wheeler
 
 # =========================================================================
 
-ENV RIPME_VER 1.7.63
+ENV RIPME_VER 1.7.64
 
 # =========================================================================
 
-ENV LMSBUILD_VERSION="9.5.1"
+ENV LMSBUILD_VERSION="9.5.2"
 ENV LMSBUILD_NAME=debian-pull-gallery 
 ENV LMSBUILD_REPO=ewsdocker 
 ENV LMSBUILD_REGISTRY="" 
 
+ENV LMSBUILD_PARENT="debian-openjre:8-jre-9.5.4"
 ENV LMSBUILD_DOCKER="${LMSBUILD_REPO}/${LMSBUILD_NAME}:${LMSBUILD_VERSION}" 
-ENV LMSBUILD_PACKAGE="RipMeApp/ripme:${RIPME_VER}"
+ENV LMSBUILD_PACKAGE="${LMSBUILD_PARENT}, RipMeApp/ripme:${RIPME_VER}"
 
 # =========================================================================
 
 RUN apt-get -y update \
  && apt-get -y upgrade \
+ && apt-get -y install \
+               libgtk-3-0 \
+               libgtk-3-bin \
+               libgtk-3-common \ 
  && mkdir -p /usr/share/ripme \
  && cd /usr/share/ripme \
  && wget "https://github.com/RipMeApp/ripme/releases/download/$RIPME_VER/ripme.jar" \
@@ -69,7 +74,7 @@ COPY scripts/. /
 RUN chmod 775 /usr/bin/ripme.bash \
  && chmod 775 /usr/share/ripme/ripme.jar \
  && chmod 775 /usr/local/bin/* \
- && chmod 600 /usr/local/share/applications/debian-pull-gallery-${LMSBUILD_VERSION}.desktop 
+ && chmod 600 /usr/local/share/applications/${LMSBUILD_NAME}-${LMSBUILD_VERSION}.desktop 
 
 # =========================================================================
 
