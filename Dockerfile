@@ -2,7 +2,7 @@
 # =========================================================================
 #
 #	Dockerfile
-#	  Dockerfile for debian-pull-gallery in an Debian container.
+#	  RipMeApp/ripme in a Debian 9.5 Docker image..
 #
 # =========================================================================
 #

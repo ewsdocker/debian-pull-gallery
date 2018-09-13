@@ -1,6 +1,6 @@
 ## ewsdocker/debian-pull-gallery:9.5.2  
 
-**[RipMeApp/ripme](https://github.com/RipMeApp/ripme) in a Debian 9.5 Docker image.**  
+**[RipMeApp/ripme](https://github.com/RipMeApp/ripme) gallery (album) ripper in a Docker image.**  
 
 ____  
 
