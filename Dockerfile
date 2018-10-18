@@ -7,7 +7,7 @@
 # =========================================================================
 #
 # @author Jay Wheeler.
-# @version 9.5.2
+# @version 9.5.3
 # @copyright © 2018. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/debian-pull-gallery
@@ -36,21 +36,21 @@
 #
 # =========================================================================
 # =========================================================================
-FROM ewsdocker/debian-openjre:8-jre-9.5.4
+FROM ewsdocker/debian-openjre:9.5.7-jre-8
 MAINTAINER Jay Wheeler
 
 # =========================================================================
 
-ENV RIPME_VER 1.7.64
+ENV RIPME_VER 1.7.68
 
 # =========================================================================
 
-ENV LMSBUILD_VERSION="9.5.2"
+ENV LMSBUILD_VERSION="9.5.3"
 ENV LMSBUILD_NAME=debian-pull-gallery 
 ENV LMSBUILD_REPO=ewsdocker 
 ENV LMSBUILD_REGISTRY="" 
 
-ENV LMSBUILD_PARENT="debian-openjre:8-jre-9.5.4"
+ENV LMSBUILD_PARENT="debian-openjre:9.5.7-jre-8"
 ENV LMSBUILD_DOCKER="${LMSBUILD_REPO}/${LMSBUILD_NAME}:${LMSBUILD_VERSION}" 
 ENV LMSBUILD_PACKAGE="${LMSBUILD_PARENT}, RipMeApp/ripme:${RIPME_VER}"
 
