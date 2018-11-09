@@ -9,7 +9,7 @@
 # =========================================================================
 #
 # @author Jay Wheeler.
-# @version 9.5.4
+# @version latest
 # @copyright © 2018. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package debian-pull-gallery
@@ -42,8 +42,7 @@ docker run -v /etc/localtime:/etc/localtime:ro \
            -e DISPLAY=unix${DISPLAY} \
            -v /tmp/.X11-unix:/tmp/.X11-unix \
            -v ${HOME}/.Xauthority:${HOME}/.Xauthority \
-           -v ${HOME}/Pictures/url-lists:/batch \
-           -v ${HOME}/Pictures:/data \
-           -v ${HOME}/.config/docker/debian-pull-gallery-9.5.4:/root \
-           --name=debian-pull-gallery-9.5.4 \
-       ewsdocker/debian-pull-gallery:9.5.4
+           -v /media/sf_ImageDownloads:/data \
+           -v ${HOME}/.config/docker/debian-pull-gallery-latest:/root \
+           --name=debian-pull-gallery-latest \
+       ewsdocker/debian-pull-gallery

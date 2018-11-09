@@ -1,4 +1,4 @@
-## ewsdocker/debian-pull-gallery:9.5.4  
+## ewsdocker/debian-pull-gallery:9.5.5  
 
 **[RipMeApp/ripme](https://github.com/RipMeApp/ripme) gallery (album) ripper in a Docker image.**  
 
@@ -29,24 +29,24 @@ ____
                -v ${HOME}/bin:/userbin \
                -v ${HOME}/.local:/usrlocal \
                -e LMS_BASE="${HOME}/.local" \
+               -e LMSBUILD_VERSION=latest \
                -v ${HOME}/.config/docker:/conf \
                -v ${HOME}/.config/docker/debian-pull-gallery-latest:/root \
-               -e LMSBUILD_VERSION=latest \
                --name=debian-pull-gallery-latest \
-           ewsdocker/debian-pull-gallery:latest lms-setup  
+           ewsdocker/debian-pull-gallery lms-setup  
 
 ____  
 
-**ewsdocker/debian-pull-gallery:9.5.4**  
+**ewsdocker/debian-pull-gallery:9.5.5**  
   
     docker run --rm \
                -v ${HOME}/bin:/userbin \
                -v ${HOME}/.local:/usrlocal \
                -e LMS_BASE="${HOME}/.local" \
                -v ${HOME}/.config/docker:/conf \
-               -v ${HOME}/.config/docker/debian-pull-gallery-9.5.4:/root \
-               --name=debian-pull-gallery-9.5.4 \
-           ewsdocker/debian-pull-gallery:9.5.4 lms-setup  
+               -v ${HOME}/.config/docker/debian-pull-gallery-9.5.5:/root \
+               --name=debian-pull-gallery-9.5.5 \
+           ewsdocker/debian-pull-gallery:9.5.5 lms-setup  
 
 ____  
   
@@ -76,10 +76,10 @@ ____
                -v /media/sf_ImageDownloads/url-lists:/batch \
                -v ${HOME}/.config/docker/debian-pull-gallery-latest:/root \
                --name=debian-pull-gallery-latest \
-           ewsdocker/debian-pull-gallery:latest  
+           ewsdocker/debian-pull-gallery  
 
 ____  
-**ewsdocker/debian-pull-gallery:9.5.4**
+**ewsdocker/debian-pull-gallery:9.5.5**
   
     docker run -v /etc/localtime:/etc/localtime:ro \
                -e DISPLAY=unix${DISPLAY} \
@@ -87,9 +87,9 @@ ____
                -v ${HOME}/.Xauthority:${HOME}/.Xauthority \
                -v ${HOME}/Pictures:/data \
                -v ${HOME}/Pictures/url-lists:/batch \
-               -v ${HOME}/.config/docker/debian-pull-gallery-9.5.4:/root \
-               --name=debian-pull-gallery-9.5.4 \
-           ewsdocker/debian-pull-gallery:9.5.4  
+               -v ${HOME}/.config/docker/debian-pull-gallery-9.5.5:/root \
+               --name=debian-pull-gallery-9.5.5 \
+           ewsdocker/debian-pull-gallery:9.5.5  
 
 ____  
 Refer to [Mapping docker host resources to the docker container](https://github.com/ewsdocker/debian-pull-gallery/wiki/QuickStart#mapping) for a discussion of customizing the executable scripts..  
@@ -104,17 +104,17 @@ ____
 
 **ewsdocker/debian-pull-gallery:edge**  
 
-**edge** is the development tag for the **9.5.5** release tag.
+**edge** is the development tag for the **9.5.6** release tag.
 
     docker pull ewsdocker/debian-pull-gallery:edge
-    docker tag ewsdocker/debian-pull-gallery:edge ewsdocker/debian-pull-gallery:9.5.5
+    docker tag ewsdocker/debian-pull-gallery:edge ewsdocker/debian-pull-gallery:9.5.6
     docker run -v ${HOME}/bin:/userbin \
                -v ${HOME}/.local:/usrlocal \
                -e LMS_BASE="${HOME}/.local" \
                -v ${HOME}/.config/docker:/conf \
-               -v ${HOME}/.config/docker/debian-pull-gallery-9.5.5:/root \
-               --name=debian-pull-gallery-9.5.5 \
-           ewsdocker/debian-pull-gallery:9.5.5 lms-setup  
+               -v ${HOME}/.config/docker/debian-pull-gallery-9.5.6:/root \
+               --name=debian-pull-gallery-9.5.6 \
+           ewsdocker/debian-pull-gallery:9.5.6 lms-setup  
 
 optional step:
 
@@ -122,7 +122,7 @@ optional step:
 
 To create and run the container, run **Pull Gallery** from the _Graphics_ category of any desktop menu, or from the command-line, the following should work:
 
-    ~/.local/bin/debian-pull-gallery-9.5.5  
+    ~/.local/bin/debian-pull-gallery-9.5.6  
 
 or,
 
@@ -132,9 +132,9 @@ or,
                -v ${HOME}/.Xauthority:${HOME}/.Xauthority \
                -v ${HOME}/Pictures/test:/data \
                -v ${HOME}/Pictures/url-lists:/batch \
-               -v ${HOME}/.config/docker/debian-pull-gallery-9.5.5:/root \
-               --name=debian-pull-gallery-9.5.5 \
-           ewsdocker/debian-pull-gallery:9.5.5    
+               -v ${HOME}/.config/docker/debian-pull-gallery-9.5.6:/root \
+               --name=debian-pull-gallery-9.5.6 \
+           ewsdocker/debian-pull-gallery:9.5.6    
 
 ____  
 
