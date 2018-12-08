@@ -1,10 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
-Exec=/home/jay/.local/bin/docker-deb-start-0.0.4 debian-pull-gallery:9.5.5
+Exec=/home/jay/.local/bin/docker-deb-start-0.0.4 debian-pull-gallery:9.5.6
 Icon=/home/jay/.local/share/icons/down.png
 Type=Application
 Terminal=false
-GenericName=Pull Gallery 9.5.5
-Name=Pull Gallery 9.5.5
+GenericName=Pull Gallery 9.5.6
+Name=Pull Gallery 9.5.6
 StartupNotify=false
 Categories=Graphics

@@ -7,7 +7,7 @@
 # =========================================================================
 #
 # @author Jay Wheeler.
-# @version 9.5.5
+# @version 9.5.6
 # @copyright © 2018. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/debian-pull-gallery
@@ -41,11 +41,11 @@ MAINTAINER Jay Wheeler
 
 # =========================================================================
 
-ENV RIPME_VER 1.7.69
+ENV RIPME_VER 1.7.72
 
 # =========================================================================
 
-ENV LMSBUILD_VERSION="9.5.5"
+ENV LMSBUILD_VERSION="9.5.6"
 ENV LMSBUILD_NAME=debian-pull-gallery 
 ENV LMSBUILD_REPO=ewsdocker 
 ENV LMSBUILD_REGISTRY="" 
