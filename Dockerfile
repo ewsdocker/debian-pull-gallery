@@ -2,20 +2,20 @@
 # =========================================================================
 #
 #	Dockerfile
-#	  RipMeApp/ripme in a Debian 9.5 Docker image..
+#	  RipMeApp/ripme in a Docker image..
 #
 # =========================================================================
 #
 # @author Jay Wheeler.
-# @version 9.5.6
-# @copyright © 2018. EarthWalk Software.
+# @version 9.6.0
+# @copyright © 2018, 2019. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/debian-pull-gallery
 # @subpackage Dockerfile
 #
 # =========================================================================
 #
-#	Copyright © 2018. EarthWalk Software
+#	Copyright © 2018, 2019. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/debian-pull-gallery.
@@ -36,21 +36,21 @@
 #
 # =========================================================================
 # =========================================================================
-FROM ewsdocker/debian-openjre:9.5.9-jre-8
+FROM ewsdocker/debian-openjre:9.6.0-jre-8
 MAINTAINER Jay Wheeler
 
 # =========================================================================
 
-ENV RIPME_VER 1.7.72
+ENV RIPME_VER 1.7.76
 
 # =========================================================================
 
-ENV LMSBUILD_VERSION="9.5.6"
+ENV LMSBUILD_VERSION="9.6.0"
 ENV LMSBUILD_NAME=debian-pull-gallery 
 ENV LMSBUILD_REPO=ewsdocker 
 ENV LMSBUILD_REGISTRY="" 
 
-ENV LMSBUILD_PARENT="debian-openjre:9.5.9-jre-8"
+ENV LMSBUILD_PARENT="debian-openjre:9.6.0-jre-8"
 ENV LMSBUILD_DOCKER="${LMSBUILD_REPO}/${LMSBUILD_NAME}:${LMSBUILD_VERSION}" 
 ENV LMSBUILD_PACKAGE="${LMSBUILD_PARENT}, RipMeApp/ripme:${RIPME_VER}"
 
@@ -58,6 +58,7 @@ ENV LMSBUILD_PACKAGE="${LMSBUILD_PARENT}, RipMeApp/ripme:${RIPME_VER}"
 
 RUN apt-get -y update \
  && apt-get -y upgrade \
+ && apt-get clean all \
  && mkdir -p /usr/share/ripme \
  && cd /usr/share/ripme \
  && wget "https://github.com/RipMeApp/ripme/releases/download/$RIPME_VER/ripme.jar" \
@@ -67,7 +68,7 @@ RUN apt-get -y update \
 
 COPY scripts/. /
 
-RUN chmod 775 /usr/bin/ripme.bash \
+RUN chmod 775 /usr/bin/ripme.sh \
  && chmod 775 /usr/share/ripme/ripme.jar \
  && chmod 775 /usr/local/bin/* \
  && chmod 600 /usr/local/share/applications/${LMSBUILD_NAME}-${LMSBUILD_VERSION}.desktop \
@@ -83,4 +84,4 @@ WORKDIR /data
 # =========================================================================
 
 ENTRYPOINT ["/my_init", "--quiet"]
-CMD ["/usr/bin/ripme.bash"]
+CMD ["/usr/bin/ripme.sh"]

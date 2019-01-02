@@ -2,22 +2,21 @@
 # =========================================================================
 # =========================================================================
 #
-#	debian-pull-gallery
-#	  docker run command for debian-pull-gallery
-#		in a Debian 9 docker image.
+#	ripme
+#	  script to start ripme.jar .
 #
 # =========================================================================
 #
 # @author Jay Wheeler.
-# @version 9.5.6
-# @copyright © 2018. EarthWalk Software.
+# @version 9.6.0
+# @copyright © 2018, 2019. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
-# @package debian-pull-gallery
-# @subpackage debian-pull-gallery
+# @package ewsdocker/debian-pull-gallery
+# @subpackage ripme
 #
 # =========================================================================
 #
-#	Copyright © 2018. EarthWalk Software
+#	Copyright © 2018, 2019. EarthWalk Software
 #	Licensed under the GNU General Public License, GPL-3.0-or-later.
 #
 #   This file is part of ewsdocker/debian-pull-gallery.
@@ -27,23 +26,16 @@
 #   as published by the Free Software Foundation, either version 3 of the 
 #   License, or (at your option) any later version.
 #
-#   ewsdocker/debian-base-gui is distributed in the hope that it will 
+#   ewsdocker/debian-pull-gallery is distributed in the hope that it will 
 #   be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
 #   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #   GNU General Public License for more details.
 #
 #   You should have received a copy of the GNU General Public License
-#   along with ewsdocker/debian-base-gui.  If not, see 
+#   along with ewsdocker/debian-pull-gallery.  If not, see 
 #   <http://www.gnu.org/licenses/>.
 #
 # =========================================================================
+# =========================================================================
 
-docker run -v /etc/localtime:/etc/localtime:ro \
-           -e DISPLAY=unix${DISPLAY} \
-           -v /tmp/.X11-unix:/tmp/.X11-unix \
-           -v ${HOME}/.Xauthority:${HOME}/.Xauthority \
-           -v ${HOME}/Pictures/url-lists:/batch \
-           -v ${HOME}/Pictures:/data \
-           -v ${HOME}/.config/docker/debian-pull-gallery-9.5.6:/root \
-           --name=debian-pull-gallery-9.5.6 \
-       ewsdocker/debian-pull-gallery:9.5.6
+java -jar /usr/share/ripme/ripme.jar
