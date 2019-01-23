@@ -7,7 +7,7 @@
 # =========================================================================
 #
 # @author Jay Wheeler.
-# @version 9.6.0
+# @version 9.6.1
 # @copyright © 2018, 2019. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/debian-pull-gallery
@@ -41,11 +41,11 @@ MAINTAINER Jay Wheeler
 
 # =========================================================================
 
-ENV RIPME_VER 1.7.76
+ENV RIPME_VER 1.7.77
 
 # =========================================================================
 
-ENV LMSBUILD_VERSION="9.6.0"
+ENV LMSBUILD_VERSION="9.6.1"
 ENV LMSBUILD_NAME=debian-pull-gallery 
 ENV LMSBUILD_REPO=ewsdocker 
 ENV LMSBUILD_REGISTRY="" 
@@ -58,11 +58,11 @@ ENV LMSBUILD_PACKAGE="${LMSBUILD_PARENT}, RipMeApp/ripme:${RIPME_VER}"
 
 RUN apt-get -y update \
  && apt-get -y upgrade \
- && apt-get clean all \
  && mkdir -p /usr/share/ripme \
  && cd /usr/share/ripme \
  && wget "https://github.com/RipMeApp/ripme/releases/download/$RIPME_VER/ripme.jar" \
- && printf "${LMSBUILD_DOCKER} (${LMSBUILD_PACKAGE}), %s @ %s\n" `date '+%Y-%m-%d'` `date '+%H:%M:%S'` >> /etc/ewsdocker-builds.txt  
+ && printf "${LMSBUILD_DOCKER} (${LMSBUILD_PACKAGE}), %s @ %s\n" `date '+%Y-%m-%d'` `date '+%H:%M:%S'` >> /etc/ewsdocker-builds.txt \ 
+ && apt-get clean all 
 
 # =========================================================================
 
