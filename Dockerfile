@@ -7,7 +7,7 @@
 # =========================================================================
 #
 # @author Jay Wheeler.
-# @version 9.6.1
+# @version 9.6.2
 # @copyright © 2018, 2019. EarthWalk Software.
 # @license Licensed under the GNU General Public License, GPL-3.0-or-later.
 # @package ewsdocker/debian-pull-gallery
@@ -36,43 +36,182 @@
 #
 # =========================================================================
 # =========================================================================
-FROM ewsdocker/debian-openjre:9.6.0-jre-8
+
+ARG ARG_VERSION="9.6.2"
+
+ARG ARG_BASE_EXT="jre-8"
+ARG ARG_BASE_VERS="9.6.0"
+
+ARG ARG_RIPME_VER="1.7.78"
+#ARG ARG_SOURCE="http://alpine-nginx-pkgcache/ripme-1.7.78.jar"
+
+FROM ewsdocker/debian-openjre:${ARG_BASE_VERS}-${ARG_BASE_EXT}
+
 MAINTAINER Jay Wheeler
 
 # =========================================================================
 
-ENV RIPME_VER 1.7.77
+# =========================================================================
+#
+#   Re-declare build args, but don't modify, to make external values internal
+#
+# =========================================================================
+
+ARG ARG_SOURCE
+
+ARG ARG_VERSION
+
+ARG ARG_BASE_EXT
+ARG ARG_BASE_VERS
+
+ARG ARG_RIPME_VER
 
 # =========================================================================
 
-ENV LMSBUILD_VERSION="9.6.1"
+ENV RIPME_VER=${ARG_RIPME_VER:-"1.7.78"}
+
+# =========================================================================
+
+ENV LMS_HOME
+ENV LMS_CONF
+ENV LMS_BASE="/usr/local"
+
+ENV LMSOPT_QUIET=0
+
+# =========================================================================
+#
+#  Persist build args in LMSARG environment variables
+#
+# =========================================================================
+
+ENV LMSARG_SOURCE=${ARG_SOURCE:-"https://github.com/RipMeApp/ripme/releases/download/$RIPME_VER/ripme.jar"}
+
+ENV LMSARG_VERSION="${ARG_VERSION:-"0.1.2"}"
+ENV LMSARG_VERS_EXT="${ARG_VERS_EXT}"
+
+ENV LMSARG_GUI_VERS="${ARG_GUI_VERS:-9.6.3}"
+
+# =========================================================================
+
+ENV LMSBUILD_ICON="down.jpg"
+
+ENV LMSBUILD_VERSION="${ARG_VERSION}"
 ENV LMSBUILD_NAME=debian-pull-gallery 
 ENV LMSBUILD_REPO=ewsdocker 
 ENV LMSBUILD_REGISTRY="" 
 
-ENV LMSBUILD_PARENT="debian-openjre:9.6.0-jre-8"
+ENV LMSBUILD_PARENT="debian-openjre:${ARG_BASE_VERS}-${ARG_BASE_EXT}"
 ENV LMSBUILD_DOCKER="${LMSBUILD_REPO}/${LMSBUILD_NAME}:${LMSBUILD_VERSION}" 
 ENV LMSBUILD_PACKAGE="${LMSBUILD_PARENT}, RipMeApp/ripme:${RIPME_VER}"
 
+ENV LMSBUILD_FULLNAME="${LMSBUILD_NAME}"
+
 # =========================================================================
 
-RUN apt-get -y update \
- && apt-get -y upgrade \
- && mkdir -p /usr/share/ripme \
- && cd /usr/share/ripme \
- && wget "https://github.com/RipMeApp/ripme/releases/download/$RIPME_VER/ripme.jar" \
- && printf "${LMSBUILD_DOCKER} (${LMSBUILD_PACKAGE}), %s @ %s\n" `date '+%Y-%m-%d'` `date '+%H:%M:%S'` >> /etc/ewsdocker-builds.txt \ 
- && apt-get clean all 
+ENV LMSBUILD_DESKTOP_NAME=Pull Gallery
+ENV LMSBUILD_DESKTOP_CATEGORIES=Graphics
 
 # =========================================================================
 
 COPY scripts/. /
 
-RUN chmod 775 /usr/bin/ripme.sh \
+# =========================================================================
+
+RUN \
+ # =========================================================================
+ #
+ #    build the apt repo cache and install base support for Kaptain
+ #
+ # =========================================================================
+    apt-get -y update \
+ && apt-get -y upgrade \
+ #
+ # =========================================================================
+ #
+ #    download and install RipME
+ #
+ # =========================================================================
+ #
+ && mkdir -p /usr/share/ripme \
+ && cd /usr/share/ripme \
+ && wget "${LMSARG_SOURCE}" -o ripme.jar \
+ #
+ # =========================================================================
+ #
+ #   create a container version tag for FullName (with no tag for 'latest' version)
+ #
+ # =========================================================================
+ #
+# && if [ "${LMSBUILD_VERSION}" != "latest" ]; then LMSBUILD_FULLNAME+=":${LMSBUILD_VERSION}"; fi \
+ #
+ # =========================================================================
+ #
+ #   rename the template to the run script name and enable editing
+ #
+ # =========================================================================
+ #
+# && cd /usr/local/bin \
+# && mv template ${LMSBUILD_NAME}-${LMSBUILD_VERSION} \
+# && chmod 775 ${LMSBUILD_NAME}-${LMSBUILD_VERSION} \
+ #
+ # =========================================================================
+ #
+ #   customize the docker run command
+ #
+ # =========================================================================
+ #
+# && echo '           -v ${HOME}/.config/docker/'"${LMSBUILD_NAME}-${LMSBUILD_VERSION}:/root \\" >> /usr/local/bin/${LMSBUILD_NAME}-${LMSBUILD_VERSION} \
+# && echo '           -v ${HOME}/.config/docker/'"${LMSBUILD_NAME}-${LMSBUILD_VERSION}/workspace:/workspace \\" >> /usr/local/bin/${LMSBUILD_NAME}-${LMSBUILD_VERSION} \
+# && echo "           --name=${LMSBUILD_NAME}-${LMSBUILD_VERSION} \\" >> /usr/local/bin/${LMSBUILD_NAME}-${LMSBUILD_VERSION} \
+# && echo "       ${LMSBUILD_REPO}/${LMSBUILD_FULLNAME} " >> /usr/local/bin/${LMSBUILD_NAME}-${LMSBUILD_VERSION} \
+# && echo " " >> /usr/local/bin/${LMSBUILD_NAME}-${LMSBUILD_VERSION} \
+ #
+ # =========================================================================
+ # =========================================================================
+ #
+ # =========================================================================
+ #
+ #   rename the desktop script template to the desktop script name and enable editing
+ #
+ # =========================================================================
+ #
+# && cd /usr/local/share/applications \
+# && mv desktop ${LMSBUILD_NAME}-${LMSBUILD_VERSION} \
+# && chmod 775 ${LMSBUILD_NAME}-${LMSBUILD_VERSION} \
+ #
+ # =========================================================================
+ #
+ #   customize the docker desktop application
+ #
+ # =========================================================================
+ #
+# && echo -n '-v ${HOME}/.config/docker/' >> ${LMSBUILD_NAME}-${LMSBUILD_VERSION}.desktop  \
+# && echo "${LMSBUILD_NAME}-${LMSBUILD_VERSION}:/root --name=${LMSBUILD_NAME}-${LMSBUILD_VERSION} ${LMSBUILD_REPO}/${LMSBUILD_FULLNAME}" >> ${LMSBUILD_NAME}-${LMSBUILD_VERSION}.desktop \
+ #
+ # =========================================================================
+ #
+ #   create backup desktop application in ../lms folder
+ #
+ # =========================================================================
+ #
+ && mkdir -p ../lms && cp ${LMSBUILD_NAME}-${LMSBUILD_VERSION} ../lms \
+ #
+ # =========================================================================
+ # =========================================================================
+ #
+ # =========================================================================
+ #
+ #   finish clean-up
+ #
+ # =========================================================================
+ #
+ && chmod 775 /usr/bin/ripme.sh \
  && chmod 775 /usr/share/ripme/ripme.jar \
  && chmod 775 /usr/local/bin/* \
- && chmod 600 /usr/local/share/applications/${LMSBUILD_NAME}-${LMSBUILD_VERSION}.desktop \
- && chmod 600 /usr/local/share/applications/${LMSBUILD_NAME}.desktop 
+# && chmod 600 /usr/local/share/applications/${LMSBUILD_NAME}-${LMSBUILD_VERSION}.desktop \
+# && chmod 600 /usr/local/share/applications/${LMSBUILD_NAME}.desktop \
+ && apt-get clean all  \
+ && printf "${LMSBUILD_DOCKER} (${LMSBUILD_PACKAGE}), %s @ %s\n" `date '+%Y-%m-%d'` `date '+%H:%M:%S'` >> /etc/ewsdocker-builds.txt 
 
 # =========================================================================
 

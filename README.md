@@ -26,11 +26,15 @@ ____
 **ewsdocker/debian-pull-gallery:latest**  
   
     docker run --rm \
-               -v ${HOME}/bin:/userbin \
-               -v ${HOME}/.local:/usrlocal \
-               -e LMS_BASE="${HOME}/.local" \
+               -it \
                -e LMSBUILD_VERSION=latest \
+               -e LMS_HOME="${HOME}" \
+               -e LMS_BASE="${HOME}/.local" \
+               -e LMS_CONF="${HOME}/.config/docker" \
+               -v ${HOME}/.local:/usrlocal \
                -v ${HOME}/.config/docker:/conf \
+               -v ${HOME}/bin:/userbin \
+               -e LMSBUILD_VERSION=latest \
                -v ${HOME}/.config/docker/debian-pull-gallery-latest:/root \
                --name=debian-pull-gallery-latest \
            ewsdocker/debian-pull-gallery lms-setup  
