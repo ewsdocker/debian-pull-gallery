@@ -43,13 +43,19 @@ ARG ARG_BASE_EXT="jre-8"
 ARG ARG_BASE_VERS="9.6.0"
 
 ARG ARG_RIPME_VER="1.7.78"
+
 #ARG ARG_SOURCE="http://alpine-nginx-pkgcache/ripme-1.7.78.jar"
 
-FROM ewsdocker/debian-openjre:${ARG_BASE_VERS}-${ARG_BASE_EXT}
+# =========================================================================
 
-MAINTAINER Jay Wheeler
+ARG ARG_FROM_REPO="debian-openjre"
+ARG ARG_FROM_VERS="${ARG_BASE_VERS}-${ARG_BASE_EXT}"
+
+FROM ewsdocker/debian-openjre:${ARG_FROM_VERS}
 
 # =========================================================================
+
+MAINTAINER Jay Wheeler
 
 # =========================================================================
 #
@@ -60,11 +66,15 @@ MAINTAINER Jay Wheeler
 ARG ARG_SOURCE
 
 ARG ARG_VERSION
+ARG ARG_VERS_EXT
 
-ARG ARG_BASE_EXT
 ARG ARG_BASE_VERS
+ARG ARG_BASE_EXT
 
 ARG ARG_RIPME_VER
+
+ARG ARG_FROM_REPO="debian-openjre"
+ARG ARG_FROM_VERS="${ARG_BASE_VERS}-${ARG_BASE_EXT}"
 
 # =========================================================================
 
@@ -86,10 +96,10 @@ ENV LMSOPT_QUIET=0
 
 ENV LMSARG_SOURCE=${ARG_SOURCE:-"https://github.com/RipMeApp/ripme/releases/download/$RIPME_VER/ripme.jar"}
 
-ENV LMSARG_VERSION="${ARG_VERSION:-"0.1.2"}"
+ENV LMSARG_VERSION=${ARG_VERSION:-"9.6.2"}
 ENV LMSARG_VERS_EXT="${ARG_VERS_EXT}"
 
-ENV LMSARG_GUI_VERS="${ARG_GUI_VERS:-9.6.3}"
+ENV LMSARG_GUI_VERS=${ARG_GUI_VERS:-"9.6.3"}
 
 # =========================================================================
 
